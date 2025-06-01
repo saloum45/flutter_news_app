@@ -28,6 +28,8 @@ class Article {
     );
   }
 
+  get text => null;
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
