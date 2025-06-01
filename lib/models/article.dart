@@ -5,6 +5,7 @@ class Article {
   final int? descendants;
   final String? url;
   final List<int>? kids;
+  final String? text; // <-- ici le champ text est bien une String
   final bool isFavorite;
 
   Article({
@@ -14,6 +15,7 @@ class Article {
     this.descendants,
     this.url,
     this.kids,
+    this.text,
     this.isFavorite = false,
   });
 
@@ -24,11 +26,11 @@ class Article {
       by: json['by'],
       descendants: json['descendants'],
       url: json['url'],
+      text: json['text'], // <-- ici aussi
       kids: json['kids'] != null ? List<int>.from(json['kids']) : [],
+      isFavorite: false,
     );
   }
-
-  get text => null;
 
   Map<String, dynamic> toMap() {
     return {
@@ -37,7 +39,8 @@ class Article {
       'by': by,
       'descendants': descendants,
       'url': url,
-      'kids': kids?.join(','), // SQLite ne gère pas les listes, donc on serialize
+      'text': text, // <-- enregistrer dans SQLite
+      'kids': kids?.join(','),
       'isFavorite': isFavorite ? 1 : 0,
     };
   }
@@ -49,6 +52,7 @@ class Article {
       by: map['by'],
       descendants: map['descendants'],
       url: map['url'],
+      text: map['text'], // <-- lecture depuis SQLite
       kids: map['kids'] != null && map['kids'] != ''
           ? map['kids'].split(',').map((e) => int.parse(e)).toList()
           : [],

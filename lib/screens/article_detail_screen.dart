@@ -49,7 +49,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
         children: [
           Text(comment.by ?? 'Inconnu', style: const TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
-          Text(comment.text ?? '', style: const TextStyle(fontSize: 14)),
+          Text(comment.text ?? 'Pas de contenu', style: const TextStyle(fontSize: 14)),
         ],
       ),
     );
