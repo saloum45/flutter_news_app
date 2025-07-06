@@ -27,16 +27,36 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Favoris')),
+      appBar: AppBar(
+        title: Row(
+          children: const [
+            Icon(Icons.favorite, color: Colors.white),
+            SizedBox(width: 8),
+            Text('Mes Favoris'),
+          ],
+        ),
+        backgroundColor: const Color.fromARGB(255, 24, 214, 214),
+        elevation: 4,
+      ),
       body: favorites.isEmpty
           ? const Center(child: Text("Aucun favori."))
-          : ListView.builder(
+          : ListView.separated(
               itemCount: favorites.length,
+              separatorBuilder: (context, index) => const Divider(
+                color: Colors.grey,
+                indent: 16,
+                endIndent: 16,
+              ),
               itemBuilder: (context, index) {
                 final article = favorites[index];
                 return ListTile(
-                  title: Text(article.title ?? 'Sans titre'),
-                  subtitle: Text('Auteur: ${article.by ?? 'Inconnu'}'),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  title: Text(
+                    article.title ?? 'Sans titre',
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  subtitle: Text('Auteur : ${article.by ?? 'Inconnu'}'),
+                  trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     Navigator.push(
                       context,
