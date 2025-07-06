@@ -6,7 +6,7 @@ class Article {
   final String? url;
   final List<int>? kids;
   final String? text; // <-- ici le champ text est bien une String
-  final bool isFavorite;
+  bool isFavorite;
 
   Article({
     required this.id,
@@ -31,7 +31,6 @@ class Article {
       isFavorite: false,
     );
   }
-
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -39,24 +38,54 @@ class Article {
       'by': by,
       'descendants': descendants,
       'url': url,
-      'text': text, // <-- enregistrer dans SQLite
-      'kids': kids?.join(','),
-      'isFavorite': isFavorite ? 1 : 0,
+      'kids': kids != null ? kids!.join(',') : null,
+      'isFavorite': isFavorite == true ? 1 : 0,
     };
   }
 
-  static Article fromMap(Map<String, dynamic> map) {
+  factory Article.fromMap(Map<String, dynamic> map) {
     return Article(
       id: map['id'],
       title: map['title'],
       by: map['by'],
       descendants: map['descendants'],
       url: map['url'],
-      text: map['text'], // <-- lecture depuis SQLite
-      kids: map['kids'] != null && map['kids'] != ''
-          ? map['kids'].split(',').map((e) => int.parse(e)).toList()
+      kids: map['kids'] != null && map['kids'].toString().isNotEmpty
+          ? map['kids']
+              .toString()
+              .split(',')
+              .map((e) => int.tryParse(e) ?? 0)
+              .toList()
           : [],
       isFavorite: map['isFavorite'] == 1,
     );
   }
+
+  // Map<String, dynamic> toMap() {
+  //   return {
+  //     'id': id,
+  //     'title': title,
+  //     'by': by,
+  //     'descendants': descendants,
+  //     'url': url,
+  //     'text': text, // <-- enregistrer dans SQLite
+  //     'kids': kids?.join(','),
+  //     'isFavorite': isFavorite ? 1 : 0,
+  //   };
+  // }
+
+  // static Article fromMap(Map<String, dynamic> map) {
+  //   return Article(
+  //     id: map['id'],
+  //     title: map['title'],
+  //     by: map['by'],
+  //     descendants: map['descendants'],
+  //     url: map['url'],
+  //     text: map['text'], // <-- lecture depuis SQLite
+  //     kids: map['kids'] != null && map['kids'] != ''
+  //         ? map['kids'].split(',').map((e) => int.parse(e)).toList()
+  //         : [],
+  //     isFavorite: map['isFavorite'] == 1,
+  //   );
+  // }
 }

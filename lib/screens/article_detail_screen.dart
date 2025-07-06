@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/article.dart';
 import '../services/api_service.dart';
+import '../services/favorite_service.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
   final Article article;
@@ -15,11 +16,18 @@ class ArticleDetailScreen extends StatefulWidget {
 class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
   List<Article> comments = [];
   bool isLoading = true;
+  bool isFavorite = false;
 
   @override
   void initState() {
     super.initState();
     fetchComments();
+    checkFavoriteStatus();
+  }
+
+  Future<void> checkFavoriteStatus() async {
+    final fav = await FavoriteService.isFavorite(widget.article);
+    setState(() => isFavorite = fav);
   }
 
   Future<void> fetchComments() async {
@@ -62,6 +70,19 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Détail de l\'article'),
+        actions: [
+          IconButton(
+            icon: Icon(
+              isFavorite ? Icons.favorite : Icons.favorite_border,
+              color: isFavorite ? Colors.red : null,
+            ),
+            onPressed: () async {
+              await FavoriteService.toggleFavorite(article);
+              final fav = await FavoriteService.isFavorite(article);
+              setState(() => isFavorite = fav);
+            },
+          )
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
