@@ -68,10 +68,32 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
     final article = widget.article;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Détail de l\'article'),
+      // appBar: AppBar(
+      //   title: const Text('Détail de l\'article'),
+      //   actions: [
+          // IconButton(
+          //   icon: Icon(
+          //     isFavorite ? Icons.favorite : Icons.favorite_border,
+          //     color: isFavorite ? Colors.red : null,
+          //   ),
+          //   onPressed: () async {
+          //     await FavoriteService.toggleFavorite(article);
+          //     final fav = await FavoriteService.isFavorite(article);
+          //     setState(() => isFavorite = fav);
+          //   },
+          // )
+      //   ],
+      // ),
+       appBar: AppBar(
+        title: Row(
+          children: const [
+            Icon(Icons.newspaper, color: Colors.white),
+            SizedBox(width: 8),
+            Text('Détail de l\'article'),
+          ],
+        ),
         actions: [
-          IconButton(
+           IconButton(
             icon: Icon(
               isFavorite ? Icons.favorite : Icons.favorite_border,
               color: isFavorite ? Colors.red : null,
@@ -83,6 +105,8 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
             },
           )
         ],
+        elevation: 4,
+        backgroundColor: Colors.deepOrange,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
