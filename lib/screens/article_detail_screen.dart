@@ -168,6 +168,10 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                 style:
                     const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
+            Text(article.text ?? '',
+                style:
+                    const TextStyle(fontSize: 15)),
+            const SizedBox(height: 8),
             if (article.url != null)
               InkWell(
                 onTap: () async {
