@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
         elevation: 4,
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: const Color.fromARGB(255, 24, 214, 214),
       ),
       body: articleProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
