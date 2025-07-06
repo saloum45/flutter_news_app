@@ -60,32 +60,4 @@ class Article {
       isFavorite: map['isFavorite'] == 1,
     );
   }
-
-  // Map<String, dynamic> toMap() {
-  //   return {
-  //     'id': id,
-  //     'title': title,
-  //     'by': by,
-  //     'descendants': descendants,
-  //     'url': url,
-  //     'text': text, // <-- enregistrer dans SQLite
-  //     'kids': kids?.join(','),
-  //     'isFavorite': isFavorite ? 1 : 0,
-  //   };
-  // }
-
-  // static Article fromMap(Map<String, dynamic> map) {
-  //   return Article(
-  //     id: map['id'],
-  //     title: map['title'],
-  //     by: map['by'],
-  //     descendants: map['descendants'],
-  //     url: map['url'],
-  //     text: map['text'], // <-- lecture depuis SQLite
-  //     kids: map['kids'] != null && map['kids'] != ''
-  //         ? map['kids'].split(',').map((e) => int.parse(e)).toList()
-  //         : [],
-  //     isFavorite: map['isFavorite'] == 1,
-  //   );
-  // }
 }
